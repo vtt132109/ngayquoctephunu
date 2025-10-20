@@ -92,7 +92,6 @@
         .envelope-container .envelope{ position: relative; width: clamp(220px, 50vw, 300px); height: clamp(140px, 32vw, 200px); background-color: #f08080; }
         .envelope-container .envelope:before{ content: ""; position: absolute; width: 70%; height: 100%; transform: rotate(45deg); top: -50%; left: 15%; border-radius: 15px 0 0 0; background-color: #f08080; }
         
-        /* FIX: z-index để trái tim bay sau thiệp */
         .envelope-container .hearts { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
         .envelope-container .card { position: absolute; background-color: #eae2b7; width: 90%; height: 85%; top: 5%; left: 5%; box-shadow: -3px -3px 50px rgba(0,0,0,0.3); z-index: 2; transition: top 0.5s ease; }
         .envelope-container:hover .card { top: -50%; }
@@ -133,13 +132,12 @@
         }
         .textLetter {
             width: 100%; flex-grow: 1; display: flex; flex-direction: column; align-items: center;
-            overflow: hidden; /* Important for child scrolling */
+            overflow: hidden; 
         }
         .textLetter h2 {
             font-size: clamp(26px, 5vw, 36px); font-weight: 700; text-align: center;
-            padding: 0 15px; margin-top: 15px; margin-bottom: 10px; flex-shrink: 0; /* Prevent title from shrinking */
+            padding: 0 15px; margin-top: 15px; margin-bottom: 10px; flex-shrink: 0;
         }
-        /* FIX: Scrolling mechanism */
         .textLetter .contentLetter {
             font-size: clamp(16px, 2.5vw, 22px); text-align: left;
             width: 100%; padding: 0 clamp(15px, 5vw, 40px);
@@ -150,19 +148,12 @@
         .contentLetter::-webkit-scrollbar-thumb { background-color: #f8ad9d; border-radius: 4px; border: 2px solid #FFEBEB; }
         .contentLetter::-webkit-scrollbar-track { background-color: transparent; }
 
-        .letterCloseBtn, .close-letter-icon { cursor: pointer; }
-        .close-letter-icon { position: absolute; right: 15px; top: 15px; color: #fff; font-size: 25px; z-index: 101; }
-        .letterCloseBtn {
-            position: absolute; right: clamp(15px, 3vw, 20px); bottom: clamp(15px, 3vw, 20px); z-index: 12;
-            width: clamp(45px, 10vw, 50px); height: clamp(45px, 10vw, 50px); border-radius: 50%; border: none;
-            background: #FF6666; color: #fff; display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 6px 14px rgba(0,0,0,0.18); font-size: clamp(18px, 4vw, 24px);
-            transition: transform 0.2s ease;
+        .close-letter-icon { 
+            position: absolute; right: 15px; top: 15px; color: #fff; font-size: 25px; z-index: 101; cursor: pointer;
         }
-        .letterCloseBtn:active{ transform: scale(0.9); }
         
         .signature {
-            position: absolute; bottom: clamp(20px, 4vh, 25px); right: clamp(80px, 15vw, 100px);
+            position: absolute; bottom: clamp(20px, 4vh, 25px); right: clamp(20px, 5vw, 40px); /* Adjusted position */
             font-weight: 700; font-size: clamp(18px, 4vw, 22px); color: #FF6666;
             font-style: italic; white-space: nowrap;
         }
@@ -212,9 +203,6 @@
                 </div>
             </div>
             <div class="signature"></div>
-            <button class="letterCloseBtn" title="Đã đọc" aria-label="Đã đọc">
-                <i class="fa-solid fa-check"></i>
-            </button>
         </div>
     </div>
 
@@ -239,7 +227,8 @@
            youtubeId: 'gJHSD-j7a_A', 
            
            titleLetter: 'Gửi người phụ nữ tuyệt vời nhất!',
-contentLetter: `Hôm nay, ngày 20 tháng 10, là một dịp đặc biệt để tớ có thể bày tỏ lòng biết ơn và sự trân trọng sâu sắc đến bạn – người phụ nữ đã luôn thầm lặng tô điểm cho cuộc đời này thêm rực rỡ.\n\nCó lẽ sẽ chẳng có ngôn từ nào đủ đầy để nói hết về những cống hiến và hy sinh của bạn. Bạn là hiện thân của sự dịu dàng nhưng cũng ẩn chứa một nội lực phi thường. Bạn là dòng sông êm đềm vỗ về những tâm hồn, nhưng cũng là ngọn núi vững chãi trước bão giông. Bạn vừa là người giữ lửa cho tổ ấm, vừa là người thắp lên những ước mơ và hoài bão lớn lao.\n\nThế giới này, và cả cuộc đời tớ, sẽ thật trống trải và vô vị biết bao nếu thiếu đi nụ cười, sự quan tâm và tình yêu thương của bạn. Cảm ơn bạn vì đã luôn là chính bạn – một phiên bản độc nhất và tuyệt vời.\n\nNhân ngày đặc biệt này, tớ không chúc bạn những điều quá cao xa. Tớ chỉ thật tâm mong rằng:\n- Mong bạn có những khoảnh khắc thật sự bình yên cho riêng mình, để lắng nghe và yêu chiều tâm hồn.\n- Mong nụ cười của bạn luôn nở rộ trên môi, không chỉ hôm nay mà trong tất cả 365 ngày của một năm.\n- Mong bạn luôn đủ mạnh mẽ để vượt qua mọi thử thách, nhưng cũng đủ dịu dàng để cho phép bản thân được yếu đuối khi cần.\n- Và hơn hết, mong bạn luôn nhận ra giá trị của bản thân và được sống một cuộc đời trọn vẹn, hạnh phúc theo đúng cách bạn mong muốn.\n\nCảm ơn vì tất cả.`,           signatureLetter: 'Từ trái tim'
+           contentLetter: `Hôm nay, ngày 20 tháng 10, là một dịp đặc biệt để tớ có thể bày tỏ lòng biết ơn và sự trân trọng sâu sắc đến bạn – người phụ nữ đã luôn thầm lặng tô điểm cho cuộc đời này thêm rực rỡ.\n\nCó lẽ sẽ chẳng có ngôn từ nào đủ đầy để nói hết về những cống hiến và hy sinh của bạn. Bạn là hiện thân của sự dịu dàng nhưng cũng ẩn chứa một nội lực phi thường. Bạn là dòng sông êm đềm vỗ về những tâm hồn, nhưng cũng là ngọn núi vững chãi trước bão giông. Bạn vừa là người giữ lửa cho tổ ấm, vừa là người thắp lên những ước mơ và hoài bão lớn lao.\n\nThế giới này, và cả cuộc đời tớ, sẽ thật trống trải và vô vị biết bao nếu thiếu đi nụ cười, sự quan tâm và tình yêu thương của bạn. Cảm ơn bạn vì đã luôn là chính bạn – một phiên bản độc nhất và tuyệt vời.\n\nNhân ngày đặc biệt này, tớ không chúc bạn những điều quá cao xa. Tớ chỉ thật tâm mong rằng:\n- Mong bạn có những khoảnh khắc thật sự bình yên cho riêng mình, để lắng nghe và yêu chiều tâm hồn.\n- Mong nụ cười của bạn luôn nở rộ trên môi, không chỉ hôm nay mà trong tất cả 365 ngày của một năm.\n- Mong bạn luôn đủ mạnh mẽ để vượt qua mọi thử thách, nhưng cũng đủ dịu dàng để cho phép bản thân được yếu đuối khi cần.\n- Và hơn hết, mong bạn luôn nhận ra giá trị của bản thân và được sống một cuộc đời trọn vẹn, hạnh phúc theo đúng cách bạn mong muốn.\n\nCảm ơn vì tất cả.`,
+           signatureLetter: 'Từ trái tim'
        };
 
        document.addEventListener('DOMContentLoaded', () => {
@@ -248,24 +237,31 @@ contentLetter: `Hôm nay, ngày 20 tháng 10, là một dịp đặc biệt đ�
             const letterScene = document.getElementById('letterScene');
             const letterWrapper = document.querySelector('.wrapperLetterForm');
             const envelopeContainer = document.querySelector('.envelope-container');
-            const closeLetterTriggers = document.querySelectorAll('.letterCloseBtn, .close-letter-icon');
+            const closeLetterTrigger = document.querySelector('.close-letter-icon');
+
+            let typingInterval = null; // To control the typing process
 
             function applyData(data) {
                 const titleEl = document.querySelector('.textLetter h2');
                 const contentEl = document.querySelector('.textLetter .contentLetter');
                 const signatureEl = document.querySelector('.signature');
                 if (titleEl) titleEl.textContent = data.titleLetter || '';
-                if (contentEl) contentEl.textContent = ''; // Clear for typing effect
+                if (contentEl) contentEl.textContent = '';
                 if (signatureEl) signatureEl.innerHTML = data.signatureLetter || '';
             }
 
             function typeWriter(element, text, speed) {
                 let i = 0;
                 element.innerHTML = '';
-                const typingInterval = setInterval(() => {
+                // Clear any previous typing process
+                if (typingInterval) clearInterval(typingInterval);
+
+                typingInterval = setInterval(() => {
                     if (i < text.length) {
                         element.innerHTML += text.charAt(i);
                         i++;
+                        // Auto-scroll to the bottom as text appears
+                        element.scrollTop = element.scrollHeight;
                     } else {
                         clearInterval(typingInterval);
                     }
@@ -297,15 +293,14 @@ contentLetter: `Hôm nay, ngày 20 tháng 10, là một dịp đặc biệt đ�
                 letterWrapper.style.display = 'flex';
                 const contentEl = document.querySelector('.textLetter .contentLetter');
                 if (config.contentLetter) {
-                    typeWriter(contentEl, config.contentLetter, 40);
+                    typeWriter(contentEl, config.contentLetter, 30); // Speed set to 30ms
                 }
             }, { once: true });
 
             // Close Letter
-            closeLetterTriggers.forEach(trigger => {
-                trigger.addEventListener('click', () => {
-                    letterWrapper.style.display = 'none';
-                });
+            closeLetterTrigger.addEventListener('click', () => {
+                letterWrapper.style.display = 'none';
+                if (typingInterval) clearInterval(typingInterval); // Stop typing if letter is closed
             });
        });
     </script>

@@ -153,7 +153,7 @@
         }
         
         .signature {
-            position: absolute; bottom: clamp(20px, 4vh, 25px); right: clamp(20px, 5vw, 40px); /* Adjusted position */
+            position: absolute; bottom: clamp(20px, 4vh, 25px); right: clamp(20px, 5vw, 40px); 
             font-weight: 700; font-size: clamp(18px, 4vw, 22px); color: #FF6666;
             font-style: italic; white-space: nowrap;
         }
@@ -223,9 +223,7 @@
     <script src="./detect-devtools.js"></script>
     <script>
        const config = {
-           // BÀI HÁT ĐÃ ĐƯỢC CHỌN: "Hơn Cả Yêu" - Đức Phúc
-           youtubeId: 'gJHSD-j7a_A', 
-           
+           youtubeId: '7maJo_zaM-4', // River Flows In You - Yiruma
            titleLetter: 'Gửi người phụ nữ tuyệt vời nhất!',
            contentLetter: `Hôm nay, ngày 20 tháng 10, là một dịp đặc biệt để tớ có thể bày tỏ lòng biết ơn và sự trân trọng sâu sắc đến bạn – người phụ nữ đã luôn thầm lặng tô điểm cho cuộc đời này thêm rực rỡ.\n\nCó lẽ sẽ chẳng có ngôn từ nào đủ đầy để nói hết về những cống hiến và hy sinh của bạn. Bạn là hiện thân của sự dịu dàng nhưng cũng ẩn chứa một nội lực phi thường. Bạn là dòng sông êm đềm vỗ về những tâm hồn, nhưng cũng là ngọn núi vững chãi trước bão giông. Bạn vừa là người giữ lửa cho tổ ấm, vừa là người thắp lên những ước mơ và hoài bão lớn lao.\n\nThế giới này, và cả cuộc đời tớ, sẽ thật trống trải và vô vị biết bao nếu thiếu đi nụ cười, sự quan tâm và tình yêu thương của bạn. Cảm ơn bạn vì đã luôn là chính bạn – một phiên bản độc nhất và tuyệt vời.\n\nNhân ngày đặc biệt này, tớ không chúc bạn những điều quá cao xa. Tớ chỉ thật tâm mong rằng:\n- Mong bạn có những khoảnh khắc thật sự bình yên cho riêng mình, để lắng nghe và yêu chiều tâm hồn.\n- Mong nụ cười của bạn luôn nở rộ trên môi, không chỉ hôm nay mà trong tất cả 365 ngày của một năm.\n- Mong bạn luôn đủ mạnh mẽ để vượt qua mọi thử thách, nhưng cũng đủ dịu dàng để cho phép bản thân được yếu đuối khi cần.\n- Và hơn hết, mong bạn luôn nhận ra giá trị của bản thân và được sống một cuộc đời trọn vẹn, hạnh phúc theo đúng cách bạn mong muốn.\n\nCảm ơn vì tất cả.`,
            signatureLetter: 'Từ trái tim'
@@ -239,7 +237,7 @@
             const envelopeContainer = document.querySelector('.envelope-container');
             const closeLetterTrigger = document.querySelector('.close-letter-icon');
 
-            let typingInterval = null; // To control the typing process
+            let typingInterval = null; 
 
             function applyData(data) {
                 const titleEl = document.querySelector('.textLetter h2');
@@ -253,14 +251,11 @@
             function typeWriter(element, text, speed) {
                 let i = 0;
                 element.innerHTML = '';
-                // Clear any previous typing process
                 if (typingInterval) clearInterval(typingInterval);
-
                 typingInterval = setInterval(() => {
                     if (i < text.length) {
                         element.innerHTML += text.charAt(i);
                         i++;
-                        // Auto-scroll to the bottom as text appears
                         element.scrollTop = element.scrollHeight;
                     } else {
                         clearInterval(typingInterval);
@@ -268,27 +263,33 @@
                 }, speed);
             }
 
-            // Initial Load
             setTimeout(() => {
                 applyData(config);
                 pageLoader.style.display = 'none';
                 document.body.classList.add('is-loaded');
             }, 1500);
 
-            // Open Gift Box
             giftBox.addEventListener('click', () => {
                 giftBox.classList.add('open');
+                
+                // SỬA LỖI NHẠC: Đảm bảo player đã sẵn sàng trước khi phát
                 if (window.player && typeof window.player.playVideo === 'function') {
-                    try { window.player.setVolume(60); window.player.playVideo(); } 
-                    catch (e) { console.error("YouTube Player Error:", e); }
+                    window.player.playVideo();
+                } else {
+                    // Nếu player chưa sẵn sàng, chờ sự kiện onReady
+                    window.onPlayerReadyCallback = () => {
+                        if (window.player && typeof window.player.playVideo === 'function') {
+                            window.player.playVideo();
+                        }
+                    };
                 }
+
                 setTimeout(() => {
                     document.body.classList.add('hide-ui');
                     letterScene.style.display = 'flex';
                 }, 1000);
             }, { once: true });
 
-            // Open Letter
             envelopeContainer.addEventListener('click', () => {
                 letterWrapper.style.display = 'flex';
                 const contentEl = document.querySelector('.textLetter .contentLetter');
@@ -297,26 +298,44 @@
                 }
             }, { once: true });
 
-            // Close Letter
             closeLetterTrigger.addEventListener('click', () => {
                 letterWrapper.style.display = 'none';
-                if (typingInterval) clearInterval(typingInterval); // Stop typing if letter is closed
+                if (typingInterval) clearInterval(typingInterval); 
             });
        });
     </script>
     <script>
+        // SỬA LỖI NHẠC: Nâng cấp script tải và xử lý YouTube API
         var tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
         var firstScriptTag = document.getElementsByTagName('script')[0];
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
         window.player;
         function onYouTubeIframeAPIReady() {
             if (typeof YT !== 'undefined') {
                 window.player = new YT.Player('player', {
                     height: '0', width: '0',
                     videoId: config.youtubeId || 'jfKfPfyJRdk',
-                    playerVars: { 'autoplay': 0, 'controls': 0, 'loop': 1, 'playlist': config.youtubeId || 'jfKfPfyJRdk' }
+                    playerVars: { 
+                        'autoplay': 0, 
+                        'controls': 0, 
+                        'loop': 1, 
+                        'playlist': config.youtubeId || 'jfKfPfyJRdk' 
+                    },
+                    events: {
+                        'onReady': onPlayerReady
+                    }
                 });
+            }
+        }
+
+        function onPlayerReady(event) {
+            // Đặt âm lượng mặc định khi sẵn sàng
+            event.target.setVolume(60);
+            // Nếu người dùng đã click hộp quà trước khi nhạc sẵn sàng, phát nhạc ngay
+            if (window.onPlayerReadyCallback) {
+                window.onPlayerReadyCallback();
             }
         }
     </script>

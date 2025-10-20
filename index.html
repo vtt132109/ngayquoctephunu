@@ -17,7 +17,7 @@
         body {
             height: 100vh; width: 100vw; position: relative; overflow: hidden;
             font-family: 'Dancing Script', cursive;
-            background-color: #fce4ec; /* Fallback background */
+            background-color: #fce4ec;
             -webkit-touch-callout: none; -webkit-user-select: none; user-select: none;
             touch-action: manipulation;
         }
@@ -28,7 +28,7 @@
             transition: transform 0.3s ease, opacity 0.5s ease;
             z-index: 1;
             will-change: transform, opacity;
-            height: auto; /* Maintain aspect ratio */
+            height: auto;
         }
         .corner-image.bottom-left { width: 60vw; bottom: 0; left: -19vw; }
         .bottom-left-right { width: 50vw; bottom: -10vh; right: -20vw; z-index: 2; transform:rotate(-20deg); }
@@ -84,7 +84,6 @@
         #pageLoader .text{ color: white; font-family: system-ui, sans-serif; font-size: 20px; text-align: center; padding: 0 16px; text-shadow: 0 1px 2px black; }
         @keyframes spin{ to{ transform: rotate(360deg);} }
 
-        /* ---------- SCENE PHONG THƯ ---------- */
         #letterScene{ position: fixed; inset: 0; z-index: 10; display: none; align-items: center; justify-content: center; }
         .envelope-container{ position: relative; cursor: pointer; animation: up 3s linear infinite; }
         @keyframes up{ 0%,100%{ transform: translateY(0);} 50%{ transform: translateY(-20px);} }
@@ -237,7 +236,7 @@
             const envelopeContainer = document.querySelector('.envelope-container');
             const closeLetterTrigger = document.querySelector('.close-letter-icon');
 
-            let typingInterval = null; 
+            let typingInterval = null;
 
             function applyData(data) {
                 const titleEl = document.querySelector('.textLetter h2');
@@ -272,16 +271,10 @@
             giftBox.addEventListener('click', () => {
                 giftBox.classList.add('open');
                 
-                // SỬA LỖI NHẠC: Đảm bảo player đã sẵn sàng trước khi phát
                 if (window.player && typeof window.player.playVideo === 'function') {
                     window.player.playVideo();
                 } else {
-                    // Nếu player chưa sẵn sàng, chờ sự kiện onReady
-                    window.onPlayerReadyCallback = () => {
-                        if (window.player && typeof window.player.playVideo === 'function') {
-                            window.player.playVideo();
-                        }
-                    };
+                    window.playMusicOnPlayerReady = true;
                 }
 
                 setTimeout(() => {
@@ -294,34 +287,29 @@
                 letterWrapper.style.display = 'flex';
                 const contentEl = document.querySelector('.textLetter .contentLetter');
                 if (config.contentLetter) {
-                    typeWriter(contentEl, config.contentLetter, 30); // Speed set to 30ms
+                    typeWriter(contentEl, config.contentLetter, 30);
                 }
             }, { once: true });
 
             closeLetterTrigger.addEventListener('click', () => {
                 letterWrapper.style.display = 'none';
-                if (typingInterval) clearInterval(typingInterval); 
+                if (typingInterval) clearInterval(typingInterval);
             });
        });
     </script>
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script>
-        // SỬA LỖI NHẠC: Nâng cấp script tải và xử lý YouTube API
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
         window.player;
         function onYouTubeIframeAPIReady() {
             if (typeof YT !== 'undefined') {
                 window.player = new YT.Player('player', {
                     height: '0', width: '0',
-                    videoId: config.youtubeId || 'jfKfPfyJRdk',
+                    videoId: config.youtubeId || '7maJo_zaM-4',
                     playerVars: { 
                         'autoplay': 0, 
                         'controls': 0, 
                         'loop': 1, 
-                        'playlist': config.youtubeId || 'jfKfPfyJRdk' 
+                        'playlist': config.youtubeId || '7maJo_zaM-4' 
                     },
                     events: {
                         'onReady': onPlayerReady
@@ -331,11 +319,9 @@
         }
 
         function onPlayerReady(event) {
-            // Đặt âm lượng mặc định khi sẵn sàng
             event.target.setVolume(60);
-            // Nếu người dùng đã click hộp quà trước khi nhạc sẵn sàng, phát nhạc ngay
-            if (window.onPlayerReadyCallback) {
-                window.onPlayerReadyCallback();
+            if (window.playMusicOnPlayerReady) {
+                event.target.playVideo();
             }
         }
     </script>

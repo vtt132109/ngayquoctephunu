@@ -271,10 +271,9 @@
             giftBox.addEventListener('click', () => {
                 giftBox.classList.add('open');
                 
+                // NẾU NHẠC CHƯA PHÁT, HÀNH ĐỘNG NÀY SẼ KÍCH HOẠT NHẠC
                 if (window.player && typeof window.player.playVideo === 'function') {
                     window.player.playVideo();
-                } else {
-                    window.playMusicOnPlayerReady = true;
                 }
 
                 setTimeout(() => {
@@ -306,7 +305,9 @@
                     height: '0', width: '0',
                     videoId: config.youtubeId || '7maJo_zaM-4',
                     playerVars: { 
-                        'autoplay': 0, 
+                        // THAY ĐỔI: Thêm autoplay và mute để thử phát tự động
+                        'autoplay': 1, 
+                        'mute': 1, // Mute là bắt buộc để autoplay hoạt động
                         'controls': 0, 
                         'loop': 1, 
                         'playlist': config.youtubeId || '7maJo_zaM-4' 
@@ -319,10 +320,14 @@
         }
 
         function onPlayerReady(event) {
-            event.target.setVolume(60);
-            if (window.playMusicOnPlayerReady) {
-                event.target.playVideo();
-            }
+            // Video sẽ tự động phát ở trạng thái tắt tiếng
+            event.target.setVolume(60); // Đặt sẵn âm lượng
+            // THAY ĐỔI: Thử bật lại tiếng sau một khoảng trễ ngắn
+            setTimeout(() => {
+                if(event.target.isMuted()) {
+                    event.target.unMute();
+                }
+            }, 500); // Thử bật tiếng sau 0.5 giây
         }
     </script>
 </body>
